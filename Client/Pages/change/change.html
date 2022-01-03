@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Flight</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="header"></div>
+
+<div class="container">
+    <div id="flightResultsHead" style="height: 87px; margin-bottom: 0;">
+        <div style="float: left;">
+            <div class="title">Change Flight</div>
+        </div>
+        <div id="changeStepProgressBar"></div>
+    </div>
+
+    <div class="main-content">
+        <div id="flightInfo"></div>
+
+        <form autocomplete="off" onsubmit="insertDate()" action="./newFlightSearch.html" method="get">
+            <div class="block">
+                <span class="block-title">New Flight</span>
+                <div class="block-section">
+                    <div class="block-content">
+                        <div class="input-field small">
+
+                            <label>FROM<span style="color: red;"> *</span>
+                                <input id="from" type="text" placeholder=" " required>
+                                <input id="fromHidden" type="hidden" name="from">
+                            </label>
+
+                        </div>
+                        <div class="input-field small">
+
+                            <label>TO<span style="color: red;"> *</span>
+                                <input id="to" type="text" placeholder=" " required>
+                                <input id="toHidden" type="hidden" name="to">
+                            </label>
+
+                        </div>
+                        <div class="input-field small" style="width: 102px;">
+                            <label>DATE<span style="color: red;"> *</span>
+                                <input id="date" type="text" placeholder=" " required
+                                       oninvalid="this.setCustomValidity('This field is required.')" onchange="this.setCustomValidity('')">
+                                <input id="alt-date" type="hidden">
+                            </label>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <input id="nextPage" type="submit" value="Continue">
+        </form>
+    </div>
+
+
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="../airlineweb.js"></script>
+<script src="../../Components/flightInfo.js"></script>
+<script src="change.js"></script>
+<script>
+        $(document).ready(function() {
+
+            startDatepicker();
+            getCities().then(function() {
+                autocomplete(document.getElementById("from"), cities);
+                autocomplete(document.getElementById("to"), cities);
+            });
+
+            $(':required').one('blur keydown', function () {
+                $(this).addClass('touched');
+            });
+
+            $('#header').load('../../Components/header.html');
+            $('#flightInfo').load('../../Components/flightInfo.html', function () {
+                var block = this;
+                getBooking(changeInfo, 'passengerCount').then(function(status) {
+                    if(status!==404)
+                    {
+                        defineFlight(JSON.parse(localStorage.getItem('flight')), block).then(function(flight) {
+                            priceInfo(block, flight);
+                        });
+                    }
+                });
+
+                document.getElementsByClassName("block-title flights")[0].innerHTML = "Current Flight Info";
+
+            });
+
+            $('#changeStepProgressBar').load('../../Components/changeStepProgressBar.html', function () {
+                var step = 1;
+                var bullets = document.getElementsByClassName("bullet");
+                for (i = 0; i < step - 1; i++) {
+                    bullets[i].classList.add('completed');
+
+                }
+                bullets[step - 1].classList.add('current');
+            });
+        });
+</script>
+</body>
+</html>

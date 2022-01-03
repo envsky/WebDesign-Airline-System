@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Cancellation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="header"></div>
+
+<div class="container">
+    <div id="flightResultsHead" style="height: 87px; margin-bottom: 0;">
+        <div style="float: left;">
+            <div class="title">Flight Price</div>
+        </div>
+        <div id="cancelStepProgressBar"></div>
+    </div>
+
+    <div id="flightInfo"></div>
+
+<div class="price-summary">
+    <div class="extra-info-highlight">
+        <i class="fas fa-arrows-alt-h"></i>
+        <span>For your safety, middle seats will stay open through January 21, 2021 to promote physical distancing onboard.</span></div>
+    <div id="priceTotals">
+
+        <div id="newPassCount">
+            <span>NEW PASSENGER COUNT</span>
+            <span>x</span>
+        </div>
+        <div id="priceDiff">
+            <span>PRICE DIFFERENCE</span>
+            <span>$500.00</span>
+        </div>
+        <div id="total">
+            <span>NEW TOTAL</span>
+            <span>$200.00</span>
+        </div>
+    </div>
+</div>
+
+<div class="block-text" style="text-align: center; font-size: 14pt;">
+    <p>A total of
+        <span id="blockTextAmount"></span>
+        will be refunded to card ending in
+        <span id="lastFourDigits">xxxxxxxxxxxx</span>.</p>
+</div>
+
+    <div id="nextPageHolder">
+        <a id="nextPage" onclick="finalizeChange('cancel')">Confirm</a>
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="../../Components/flightInfo.js"></script>
+<script src="change.js"></script>
+<script src="../booking/price.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $(':required').one('blur keydown', function () {
+            $(this).addClass('touched');
+        });
+
+        $('#header').load('../../Components/header.html');
+        $('#flightInfo').load('../../Components/flightInfo.html', function () {
+            var block = this;
+            getBooking(changeInfo, 'all').then(function() {
+                defineFlight(JSON.parse(localStorage.getItem('flight')), block).then(function(flight) {
+                    priceInfo(block, flight, 'cancel');
+                });
+            });
+        });
+        fillOutPriceDifference('cancel');
+        $('#cancelStepProgressBar').load('../../Components/cancelStepProgressBar.html', function () {
+            var step = 2;
+            var bullets = document.getElementsByClassName("bullet");
+            for (i = 0; i < step - 1; i++) {
+                bullets[i].classList.add('completed');
+
+            }
+            bullets[step - 1].classList.add('current');
+        });
+    });
+</script>
+</body>
+</html>

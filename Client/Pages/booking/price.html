@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Price</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="container">
+        <div id="flightResultsHead" style="height: 87px; margin-bottom: 0;">
+            <div style="float: left;">
+                <div class="title">Price Details</div>
+            </div>
+            <div id="bookStepProgressBar"></div>
+        </div>
+
+
+        <div>
+            <div id="flightInfo"></div>
+
+            <div class="price-summary">
+                <div class="extra-info-highlight">
+                    <i class="fas fa-arrows-alt-h"></i>
+                    <span>For your safety, middle seats will stay open through January 21, 2021 to promote physical distancing onboard.</span></div>
+                <div id="priceTotals">
+                    <div id="bagFee">
+                        <span>BAG FEE</span>
+                        <span></span>
+                    </div>
+                    <div id="subtotal">
+                        <span>SUBTOTAL</span>
+                        <span></span>
+                    </div>
+                    <div id="taxesFees">
+                        <span>TAXES & FEES</span>
+                        <span></span>
+                    </div>
+                    <div id="total">
+                        <span>TRIP TOTAL</span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="nextPageHolder">
+            <a id="nextPage" href="./payment.html">Continue</a>
+        </div>
+    </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../../Components/flightInfo.js"></script>
+<script src="./price.js"></script>
+<script>
+    $(function(){
+        $('#header').load('../../Components/header.html');
+        $('#flightInfo').load('../../Components/flightInfo.html', function() {
+            var block = this;
+            defineFlight(JSON.parse(localStorage.getItem("flight")), block).then(function(flight) {
+                priceInfo(block, flight);
+                fillOutPriceSummary(flight);
+            });
+        });
+        $('#bookStepProgressBar').load('../../Components/bookStepProgressBar.html', function() {
+                var step = 1;
+                var bullets = document.getElementsByClassName("bullet");
+                for(i=0; i < step-1; i++)
+                {
+                    bullets[i].classList.add('completed');
+
+                }
+                bullets[step-1].classList.add('current');
+            });
+    });
+</script>
+</body>
+</html>

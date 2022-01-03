@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flights Available</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="header"></div>
+
+
+<div id="flightResultsHead" class="container" style="margin-bottom: 0; overflow: auto; height: 100%;">
+    <div style="overflow: auto; margin-bottom: 15px;">
+        <div style="float: left;">
+            <div class="title">New Flight</div>
+        </div>
+        <div id="changeStepProgressBar"></div>
+    </div>
+
+
+    <div class="title" style="width: 159px; float: left;">Depart:</div>
+    <div class="flight-info-title">
+        <text id="depart" style="margin-right: 13px;"></text>
+        <i class="fas fa-plane" style="font-size: 1.3rem; position: absolute; top: 17.3%; opacity: 0.6"></i>
+        <text id="arrive" style="margin-left:44px;"></text>
+        <div style="font-size: 19pt">
+            <text id="departCity"></text>
+            to
+            <text id="arriveCity"></text>
+        </div>
+    </div>
+
+    <div class="input-field" style="margin: 20px 20px 0 0; float:left; width: 153px;">
+        <input id="date" type="text" placeholder="Date" style="padding-left: 7px" required
+               oninvalid="this.setCustomValidity('This field is required.')" onchange="this.setCustomValidity(''); changeDate()">
+        <input id="alt-date" type="hidden">
+        <label for="date" style="font-size: 16px; top: -12px;">Date</label>
+
+    </div>
+</div>
+
+
+<div class="container" style="width: 1000px;">
+
+    <div style="width: 100%;">
+
+        <table id="flightsTable">
+            <colgroup>
+                <col span="4">
+                <col span="3" style="width: 11%;">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>Departing</th>
+                <th>Arriving</th>
+                <th>Stops</th>
+                <th>Duration</th>
+                <th class="ecoCol">Economy</th>
+                <th class="ecoPlusCol">Economy Plus</th>
+                <th class="businessCol">Business</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="spacer"></tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="legal-info">
+        <strong>Important fare and schedule information</strong>
+
+        <p>All fare and fare ranges are subject to change until purchased.</p>
+        <p>Flight ontime performance statistics can be viewed by clicking on the individual flight numbers.</p>
+        <p>All fare and fare ranges listed are per person for each way of travel.</p>
+        <p>"Unavailable" indicates the corresponding fare is unavailable for the selected dates, the search did not meet certain fare requirements, or the flight has already departed.</p>
+        <p>"Invalid w/ Depart or Return Dates" indicates that our system cannot return a valid itinerary option(s) with the search criteria submitted. This can occur when flights are sold out in one direction of a round trip search or with a same-day round trip search. These itineraries may become valid options if you search with a different depart or return date and/or for a one-way flight instead.</p>
+        <p>For infant, child (2-11) and military fares, please call 1-800-I-FLY-SWA (1-800-435-9792). These fares are a discount off the "Anytime" fares. Other fares may be lower.</p>
+        <p>Group Reservations, ten or more Customers traveling from/to the same origin/destination. Discounts vary. Call 1-800-433-5368.</p>
+        <p>"Savings with Flight + Hotel" claim is based on average savings for Southwest Vacations® bookings purchased in a bundled package of 5 or more nights vs purchasing components separately (i.e: a la carte). Savings on any given package will vary based on the selected origin, destination, travel dates, hotel property, length of stay, car rental, and activity tickets. Savings may not be available on all packages.</p>
+        <p>1Refundable, as long as you cancel your reservation at least ten (10) minutes prior to the scheduled departure of your flight. If you cancel, you’re eligible to receive 100% of your ticket value as a refund to your original form of payment. Southwest reusable travel funds from a previous reservation that are applied toward a Business Select Fare will be refunded as reusable travel funds.</p>
+        <p>2Same-day change/Same-day standby: To take advantage of these benefits, see a Southwest agent at the airport. If there’s an open seat on a different flight on the same day as your original flight and it’s between the same cities, our agent can book a seat on the new flight for you free of airline charges. If there isn’t an open seat, ask an agent to add you to the same-day standby list. If there are any government taxes and fees associated with these itinerary changes, you will be required to pay those. Your original boarding position is not guaranteed.</p>
+        <p>3Fly By® priority lane: This priority lane gets you to the front of the ticket counter faster. A-List or A-List Preferred Members already enjoy the Fly By® priority lane (where available). Fly By® security lane: This priority lane gets you through the security line faster. A-List or A-List Preferred Members enjoy this benefit too.</p>
+    </div>
+
+</div>
+<div class="container error-text">
+    <p>We're sorry, it looks like we don't have any flights matching your criteria.</p>
+    <p>Keep searching, we may have available flights between these cities on different dates.</p>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="../booking/flightsAvailable.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#header').load('../../Components/header.html');
+        $('#changeStepProgressBar').load('../../Components/changeStepProgressBar.html', function () {
+            var step = 2;
+            var bullets = document.getElementsByClassName("bullet");
+            for (i = 0; i < step - 1; i++) {
+                bullets[i].classList.add('completed');
+
+            }
+            bullets[step - 1].classList.add('current');
+        });
+    });
+</script>
+
+</body>
+</html>

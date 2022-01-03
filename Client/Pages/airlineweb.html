@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Panda Airways | Make Reservations & Plan a Trip</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/Components/styling.css">
+</head>
+<body>
+
+<div id="header"></div>
+
+<div class="banner" style="position:absolute;width:100%; top:57px;">
+    <div id="slideshow">
+        <img src="https://theculturetrip.com/wp-content/uploads/2017/08/10552556345_9dcad3110c_k.jpg">
+
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=
+                rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2250&q=80"
+             style="height: 700px; top: -12%">
+        <img src="https://images.unsplash.com/photo-1502657877623-f66bf489d236?ixlib=rb-1.2.1
+                &auto=format&fit=crop&w=2250&q=80">
+    </div>
+
+</div>
+
+
+
+<div class="container flight-search">
+    <div class="homepage-bar" style="padding:0">
+        <div class="tabs" style="margin-bottom: 0; height: 62px;">
+            <ul>
+                <li><button class="title" id="bookShow">Book a Flight</button></li>
+                <li><button class="title" id="statusShow">Flight Status</button></li>
+                <li><button class="title" id="changeShow">Change/Cancel</button></li>
+                <li><button class="title" id="checkInShow">Check In</button></li>
+            </ul>
+        </div>
+
+        <div class="arrow-up" id="idCaret" style="position:absolute; padding: 0; top: 52px; left:13.5%;"></div>
+    </div>
+
+
+
+    <form id="book" autocomplete="off" action="booking/flightsAvailable.html" method="get">
+        <section>
+            <div class="input-field" style="margin-right: 50px;">
+                <input id="from" type="text" placeholder="From" required
+                       oninvalid="this.setCustomValidity('Please enter a valid location.')" onchange="this.setCustomValidity('')">
+                <input id="fromHidden" type="hidden" name="from">
+                <label for="from">From</label>
+
+            </div>
+
+            <div class="input-field">
+                <input id="to" type="text" placeholder="To" required
+                       oninvalid="this.setCustomValidity('Please enter a valid location.')" onchange="this.setCustomValidity('')">
+                <input id="toHidden" type="hidden" name="to">
+                <label for="to">To</label>
+            </div>
+        </section>
+
+        <section>
+            <div class="input-field" style="margin-right: 50px;">
+                <input id="date" type="text" placeholder="Date" style="padding-left: 7px" required
+                       oninvalid="this.setCustomValidity('This field is required.')" onchange="this.setCustomValidity('')">
+                <input id="alt-date" type="hidden">
+                <label for="date">Date</label>
+
+            </div>
+
+            <div class="input-field">
+                <div style="float:left; margin-right: 20px; width: 262px; padding: 0;">
+                    <select id="travelers" name="travelers" style="width: 54px;float:left; padding-left: 9px" onchange="changeText()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <div id="travelText" style="float:left; font-size: 20pt; top:11px; position: relative;">traveler</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="submit-section">
+            <input class="button" type="submit" onclick="insertDate()" value="Find Flights">
+        </section>
+    </form>
+
+    <form id="status" autocomplete="off" action="status/flightStatus.html">
+        <section>
+            <div class="input-field" style="margin-right: 50px;">
+                <input id="fromStatus" type="text" placeholder="From" required
+                       oninvalid="this.setCustomValidity('Please enter a valid location.')" onchange="this.setCustomValidity('')">
+                <input id="fromStatusHidden" type="hidden" name="from">
+                <label for="fromStatus">From</label>
+
+            </div>
+
+            <div class="input-field">
+                <input id="toStatus" type="text" placeholder="To" required
+                       oninvalid="this.setCustomValidity('Please enter a valid location.')" onchange="this.setCustomValidity('')">
+                <input id="toStatusHidden" type="hidden" name="to">
+                <label for="toStatus">To</label>
+            </div>
+        </section>
+
+        <section>
+            <div class="input-field" style="margin-right: 50px;">
+                <input id="dateStatus" type="text" placeholder="Date" style="padding-left: 7px" required
+                       oninvalid="this.setCustomValidity('This field is required.')" onchange="this.setCustomValidity('')">
+                <input id="alt-date-status" type="hidden">
+                <label for="dateStatus">Date</label>
+
+            </div>
+
+            <div class="input-field">
+                <input id="flightNum" type="text" name="flightNum" placeholder="Flight Number">
+                <label for="flightNum">(Optional) Flight Number</label>
+
+            </div>
+        </section>
+        <section class="submit-section">
+            <input class="button" onclick="insertDateStatus()" type="submit" value="Check Status">
+        </section>
+
+    </form>
+
+    <form id="change" onsubmit="return insertChangeInfo()" autocomplete="off">
+        <section style="height: 151px; align-items: center">
+            <div class="input-field" style="margin-right: 50px; height: 74px">
+                <input id="bookRef" type="text" minlength="6" maxlength="6"
+                       placeholder="Booking Number" oninvalid="this.setCustomValidity('Please enter a valid booking number.')"
+                       onchange="this.setCustomValidity('')" required>
+                <label for="bookRef">Booking Number</label>
+            </div>
+
+            <div class="input-field radio" style="width: 126px; height: 77px;">
+                <div class="radio-option">
+                    <label>
+                        <input id="changeFlight" type="radio" name="change_cancel" value="change" required>
+                        CHANGE
+                    </label>
+                </div>
+                <div class="radio-option">
+
+                    <label>
+                        <input id="cancelFlight" type="radio" name="change_cancel" value="cancel">
+                        CANCEL
+                    </label>
+                </div>
+            </div>
+
+        </section>
+        <section class="submit-section">
+            <input class="button" type="submit" value="Search">
+        </section>
+
+    </form>
+
+    <form id="checkIn" onsubmit="return checkIn()" autocomplete="off">
+        <section style="height: 151px; align-items: center">
+            <div class="input-field" style="margin-right: 50px; height: 74px">
+                <input id="checkInBookRef" type="text" minlength="6" maxlength="6"
+                       placeholder="Booking Number" oninvalid="this.setCustomValidity('Please enter a valid booking number.')"
+                       onchange="this.setCustomValidity('')" required>
+                <label for="checkInBookRef">Booking Number</label>
+            </div>
+            <div class="input-field" style="width: 89px; margin-right: 37px; height: 74px; float:left; padding-left: 9px">
+                <input id="checkInBag" type="number"
+                       placeholder="Bags" oninvalid="this.setCustomValidity('Please enter a valid number.')"
+                       onchange="this.setCustomValidity('')" required>
+                <label for="checkInBag">Bags</label>
+            </div>
+        </section>
+        <section class="submit-section">
+            <input class="button" type="submit" value="Check In">
+        </section>
+    </form>
+</div>
+
+<div class="container" style="padding:26px 0;">
+    <div class="title">Find your adventure.</div>
+    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab ad alias beatae culpa, dolor dolorum eius explicabo facilis fugit in ipsa nam officia omnis quae, repellat reprehenderit velit voluptate!</span><span>Adipisci alias aliquid at deleniti dicta distinctio ea, eligendi et expedita explicabo facere fugiat ipsam itaque iusto libero nam officia perferendis quasi quis quos recusandae repellat reprehenderit soluta unde vero?</span><span>Aliquam eligendi est hic impedit ipsum nulla officia quibusdam quidem quod, reiciendis repellat repudiandae temporibus? Dicta dolore fuga mollitia nam neque nisi nulla quis quisquam, saepe vel vitae voluptate voluptatum.</span><span>Aliquid aspernatur, dolor dolorem dolorum error exercitationem fugiat illo itaque maiores, minus mollitia nulla pariatur possimus reiciendis reprehenderit. Aliquid asperiores blanditiis dicta et nisi nostrum nulla officiis optio quod rerum.</span><span>Aliquam consectetur cumque debitis deleniti impedit, iste laborum minima necessitatibus obcaecati, omnis quae quas tempora! Consequatur enim illum placeat qui rem. Ab aliquam natus nulla numquam quas reiciendis repudiandae voluptatem!</span></p>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script>
+    $(function(){
+        $('#header').load('../Components/header.html');
+    });
+</script>
+<script src="airlineweb.js"></script>
+<script>
+    $(document).ready(function() {
+        homepageStart();
+        $( "#date" ).datepicker();
+        $( "#dateStatus").datepicker();
+
+
+        $(':required').one('blur keydown', function() {
+            $(this).addClass('touched');
+        });
+    });
+    autocomplete(document.getElementById("from"), cities);
+    autocomplete(document.getElementById("to"), cities);
+    autocomplete(document.getElementById("fromStatus"), cities);
+    autocomplete(document.getElementById("toStatus"), cities);
+</script>
+
+</body>
+</html>

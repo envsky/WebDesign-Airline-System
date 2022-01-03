@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight Status</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="header"></div>
+<div id="flightResultsHead" class="container">
+
+    <div class="title" style="width: 159px; float: left;">Flight:</div>
+    <div class="flight-info-title">
+        <text id="depart" style="margin-right: 13px;"></text>
+        <i class="fas fa-plane" style="font-size: 1.3rem; position: absolute; top: 17.3%; opacity: 0.6"></i>
+        <text id="arrive" style="margin-left:44px;"></text>
+        <div style="font-size: 19pt">
+            <text id="departCity"></text>
+            to
+            <text id="arriveCity"></text>
+        </div>
+    </div>
+
+    <div class="input-field" style="margin: 20px 20px 0 0; float:left; width: 153px;">
+        <input id="date" type="text" placeholder="Date" style="padding-left: 7px" required
+               oninvalid="this.setCustomValidity('This field is required.')" onchange="this.setCustomValidity(''); changeDate()">
+        <input id="alt-date" type="hidden">
+        <label for="date" style="font-size: 16px; top: -12px;">Date</label>
+
+    </div>
+
+</div>
+<div class="container" style="width: 1000px;">
+
+    <div style="width: 100%;">
+
+        <table id="flightsTable">
+            <thead>
+            <tr>
+                <th>Flight ID</th>
+                <th>Departing</th>
+                <th></th>
+                <th>Arriving</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr class="spacer"></tr>
+
+            </tbody>
+
+        </table>
+    </div>
+
+
+</div>
+<div class="container error-text">
+    <p>We're sorry, it looks like we don't have any flights matching your criteria.</p>
+    <p>Keep searching, we may have available flights between these cities on different dates.</p>
+</div>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script>
+    $(function(){
+        $('#header').load('../../Components/header.html');
+    });
+</script>
+<script src="flightStatus.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $(function() {
+            $( "#date" ).datepicker();
+        });
+    });
+</script>
+</body>
+</html>

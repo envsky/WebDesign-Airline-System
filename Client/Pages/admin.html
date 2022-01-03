@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Controls</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../Components/styling.css">
+</head>
+<body>
+<div id="header"></div>
+
+<div class="admin-controls container">
+    <div class="view-flight-info block">
+        <span class="block-title">View Flight Information</span>
+
+        <div class="view-flight-info block-section" style="">
+            <div class="block-section block-content">
+                <div class="input-field small">
+                    <label>Flight ID
+                        <input id="flightID" type="text">
+                    </label>
+                </div>
+                <button id="viewFlightInfo" class="button-small" onclick="viewFlightInfo(document.getElementById('flightID').value)">View</button>
+                <div class="status">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="populateDB block">
+        <span class="block-title">Populate Database</span>
+        <div class="block-section">
+            <div class="block-content">
+
+                <span>Add</span>
+                <div class="input-field" style="width: 72px">
+                    <input id="numOfBookings" type="number" min="1" max="100" onfocusout="this.classList.add('touched')" required>
+                </div>
+                <span>random bookings to the database.</span>
+                <button class="button-small" onclick="return insertFakeStuff(document.getElementById('numOfBookings').value)">Submit</button>
+                <div class="status">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script>
+    $(function(){
+        $('#header').load('../Components/header.html');
+
+    });
+</script>
+<script src="admin.js"></script>
+</body>
+</html>

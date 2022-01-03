@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cancellation Successful</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="header"></div>
+
+<div class="container">
+    <div id="flightResultsHead" style="height: 87px; margin-bottom: 0;">
+        <div style="float: left;">
+            <div class="title">Cancellation Successful</div>
+        </div>
+        <div id="cancelStepProgressBar"></div>
+    </div>
+
+    <div id="flightInfo"></div>
+
+    <div id="content-container">
+
+    </div>
+
+    <div id="nextPageHolder">
+
+        <a id="nextPage" onclick="clearLocalStorage()" href="../airlineweb.html" style="width: 173px;">Back to Homepage</a>
+    </div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../../Components/flightInfo.js"></script>
+<script src="../booking/confirmation.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $(':required').one('blur keydown', function () {
+            $(this).addClass('touched');
+        });
+
+        $('#header').load('../../Components/header.html');
+        if(JSON.parse(localStorage.getItem("response")).type === 'partialDelete')
+        {
+            $('#flightInfo').load('../../Components/flightInfo.html', function () {
+                var block = this;
+                defineFlight(JSON.parse(localStorage.getItem('flight')), block).then(function(flight) {
+                    priceInfo(block, flight, 'cancelConf');
+                });
+            });
+
+        }
+        else
+        {
+
+        }
+        fillOutResponseInfo('cancel');
+
+
+        $('#cancelStepProgressBar').load('../../Components/cancelStepProgressBar.html', function () {
+            var step = 3;
+            var bullets = document.getElementsByClassName("bullet");
+            for (i = 0; i < step - 1; i++) {
+                bullets[i].classList.add('completed');
+
+            }
+            bullets[step - 1].classList.add('current');
+        });
+    });
+</script>
+
+</body>
+</html>

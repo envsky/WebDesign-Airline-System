@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cancel Flight</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="header"></div>
+
+<div class="container">
+    <div id="flightResultsHead" style="height: 87px; margin-bottom: 0;">
+        <div style="float: left;">
+            <div class="title">Cancel Flight</div>
+        </div>
+        <div id="cancelStepProgressBar"></div>
+    </div>
+
+    <div id="flightInfo"></div>
+
+    <form onsubmit="return getPassengersCancel();" action="./cancelRefund.html">
+        <div class="block">
+            <div class="block-title">Passengers to Cancel</div>
+            <div class="block-section">
+                <div class="block-content" style="display: block">
+                </div>
+            </div>
+        </div>
+
+        <div id="nextPageHolder">
+            <button id="nextPage" type="submit">Continue</button>
+        </div>
+    </form>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<script src="../../Components/flightInfo.js"></script>
+<script src="change.js"></script>
+<script>
+    $(document).ready(function() {
+
+        $(':required').one('blur keydown', function () {
+            $(this).addClass('touched');
+        });
+
+        $('#header').load('../../Components/header.html');
+        $('#flightInfo').load('../../Components/flightInfo.html', function () {
+            var block = this;
+            getBooking(changeInfo, 'all').then(function() {
+                defineFlight(JSON.parse(localStorage.getItem('flight')), block).then(function(flight) {
+                    priceInfo(block, flight, 'cancel');
+                });
+                displayPassengers();
+            });
+
+
+        });
+
+        $('#cancelStepProgressBar').load('../../Components/cancelStepProgressBar.html', function () {
+            var step = 1;
+            var bullets = document.getElementsByClassName("bullet");
+            for (i = 0; i < step - 1; i++) {
+                bullets[i].classList.add('completed');
+
+            }
+            bullets[step - 1].classList.add('current');
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Successful</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="header"></div>
+
+<div class="container">
+    <div id="flightResultsHead" class="border-bottom" style="height: 87px; margin-bottom: 0;">
+        <div style="float: left;">
+            <div class="title">Change Successful</div>
+        </div>
+        <div id="bookStepProgressBar"></div>
+    </div>
+
+    <div class="block-text"></div>
+
+    <div id="flightInfo"></div>
+    <div class="two-block-section">
+        <div class="passenger-container block">
+            <div class="block-title passengers">Passenger Info</div>
+            <div class="block-section">
+                <div class="subtitle">
+                    <div class="name">NAME</div>
+                    <div class="spacer"></div>
+                    <div class="dob">DATE OF BIRTH</div>
+                </div>
+                <div class="passenger-info"></div>
+            </div>
+
+        </div>
+
+        <div class="payment-container block">
+            <div class="block-title payment">Payment Info</div>
+            <div class="block-section">
+                <div class="payment-info">
+                    <div class="cardNum">
+                        <span>Card Number</span>
+                        <span id="cardNum">xxxxxxxxxxxx</span>
+                    </div>
+                    <div class="total-amount">
+                        <span>Total Amount</span>
+                        <span id="totalAmount"></span>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div id="nextPageHolder">
+
+        <a id="nextPage" onclick="clearLocalStorage()" href="../airlineweb.html" style="width: 173px;">Back to Homepage</a>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../../Components/flightInfo.js"></script>
+<script src="../booking/confirmation.js"></script>
+<script>
+    $(function(){
+        $('#header').load('../../Components/header.html');
+        $('#flightInfo').load('../../Components/flightInfo.html', function() {
+            var block = this;
+            defineFlight(JSON.parse(localStorage.getItem("newFlight")), block).then(function(flight) {
+                priceInfo(block, flight, 'changeConf');
+            });
+        });
+        fillOutResponseInfo('change');
+        $('#bookStepProgressBar').load('../../Components/bookStepProgressBar.html', function() {
+            var step = 3;
+            var bullets = document.getElementsByClassName("bullet");
+            for(i=0; i < step-1; i++)
+            {
+                bullets[i].classList.add('completed');
+
+            }
+            bullets[step-1].classList.add('current');
+        });
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Price Reconcile</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="header"></div>
+
+<div class="container">
+    <div id="flightResultsHead" style="height: 87px; margin-bottom: 0;">
+        <div style="float: left;">
+            <div class="title">Price Reconcile</div>
+        </div>
+        <div id="changeStepProgressBar"></div>
+    </div>
+
+    <div id="flightInfo"></div>
+
+    <div id="newFlightInfo"></div>
+
+    <div class="price-summary">
+        <div class="extra-info-highlight">
+            <i class="fas fa-arrows-alt-h"></i>
+            <span>For your safety, middle seats will stay open through January 21, 2021 to promote physical distancing onboard.</span></div>
+        <div id="priceTotals">
+            <div id="total">
+                <span>TOTAL DIFFERENCE</span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="block-text" style="text-align: center; font-size: 14pt;">
+
+    </div>
+
+
+    <div id="nextPageHolder" style="margin: 30px 0 0 0;">
+        <div id="policy-agreement">
+            <div><strong>Transportation of hazardous materials</strong></div>
+            <div>Federal law forbids the carriage of hazardous materials such as aerosols, fireworks, lithium batteries, and flammable liquids aboard the aircraft in your checked or carryon baggage.
+                E-cigarettes are not permitted in checked baggage and must be transported in carryon baggage only. By clicking 'Confirm', you acknowledge that you understand the hazardous materials restrictions and penalties. View more on hazardous materials.
+            </div>
+            <div style="width: 100%;">
+                By clicking 'Confirm', I agree to the Terms and Conditions below, the privacy policy, fare rules, and the contract of carriage.
+            </div>
+
+
+        </div>
+        <button id="nextPage" onclick="finalizeChange('change')">Confirm</button>
+    </div>
+
+    <div class="legal-info">
+        <strong>Terms and Conditions</strong>
+
+        <p><strong>Flight</strong></p>
+        <ul style="list-style-type:disc; margin-left: 30px;">
+            <li>I agree to the fare rules, Terms & Conditions, Privacy Policy, and Contract of Carriage.</li>
+            <li>All nonrefundable funds applied toward the purchase of a new reservation remain nonrefundable.</li>
+            <li>Expiration dates of applied funds may result in new ticket(s) expiring earlier
+                than the 12 months from date of purchase. The new expiration date will be printed
+                on the confirmation receipt sent to you.</li>
+            <li><strong>Be there with time to spare.</strong> Be sure to arrive at the departure gate
+                with your boarding pass at least 10 minutes before your scheduled departure time. Otherwise,
+                your reserved space may be canceled and you won't be eligible for denied boarding compensation.</li>
+            <li><strong>No Show Policy:</strong> If you are not planning to travel on any portion of this
+                itinerary, please cancel your reservation at least 10 minutes prior to the scheduled
+                departure of your flight. Customers who fail to cancel reservations for a Economy
+                fare segment at least 10 minutes prior to travel and who do not board the flight will be
+                considered a no show, and all remaining unused Economy funds will be forfeited.
+                All remaining unused Business and Economy Plus funds will be converted to reusable travel
+                funds for the originally ticketed Passenger only. If you no show your reward travel reservation,
+                the points will be redeposited to the purchaser’s account. Any taxes and
+                fees associated with your reward travel reservation will be held for future use in the form of
+                reusable travel funds under the name of the traveler(s).</li>
+            <li><strong>Prohibition of Multiple/Conflicting Reservations:</strong> To promote seat availability
+                for our Customers, Panda Airways® prohibits multiple reservations for the same Passenger departing
+                from the same city on the same date, or any multiple reservations containing conflicting or
+                overlapping itineraries (such as departures for the same Customer from multiple cities at the
+                same time). Furthermore, without advance notice to the Passenger or purchaser, Panda Airways® may
+                cancel such reservations, or any other reservations that it believes, in its sole discretion,
+                were made without intent to travel. With the exception of Panda Airways® gift cards, funds from
+                proactively canceled reservations by Panda Airways® will be returned to the original form of payment.
+                Reservations paid for with a Panda Airways® gift card will have the amount applied from the gift
+                card held as travel funds for use by the Customer on a future Panda Airways® flight.</li>
+        </ul>
+
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../../Components/flightInfo.js"></script>
+<script src="change.js"></script>
+<script src="../booking/price.js"></script>
+<script>
+    $(document).ready(function() {
+        $(':required').one('blur keydown', function () {
+            $(this).addClass('touched');
+        });
+        $('#header').load('../../Components/header.html');
+        $('#flightInfo').load('../../Components/flightInfo.html', function () {
+            var block = this;
+            getBooking(changeInfo, 'passengerCount').then(function() {
+                defineFlight(JSON.parse(localStorage.getItem('flight')), block).then(function(flight) {
+                    priceInfo(block, flight, 'change');
+                });
+            });
+            block.getElementsByClassName("block-title flights")[0].innerHTML = "Current Flight Info";
+        });
+        $('#newFlightInfo').load('../../Components/flightInfo.html', function() {
+            var block = this;
+            defineFlight(JSON.parse(localStorage.getItem('newFlight')), block).then(function(flight) {
+                priceInfo(block, flight);
+            });
+            block.getElementsByClassName("block-title flights")[0].innerHTML = "New Flight Info";
+        });
+        fillOutPriceDifference();
+        $('#changeStepProgressBar').load('../../Components/changeStepProgressBar.html', function () {
+            var step = 3;
+            var bullets = document.getElementsByClassName("bullet");
+            for (i = 0; i < step - 1; i++) {
+                bullets[i].classList.add('completed');
+
+            }
+            bullets[step - 1].classList.add('current');
+        });
+    });
+</script>
+</body>
+</html>

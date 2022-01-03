@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="../../Components/styling.css">
+    <script src="https://kit.fontawesome.com/44362617d9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div id="header"></div>
+<div class="container">
+    <div id="flightResultsHead" style="height: 87px; margin-bottom: 0;">
+        <div style="float: left;">
+            <div class="title">Passenger & Payment Info</div>
+        </div>
+        <div id="bookStepProgressBar"></div>
+    </div>
+
+    <div id="flightInfo"></div>
+
+    <form onsubmit="purchase()">
+        <div class="passenger-info block">
+
+            <span class="block-title">Passenger Information</span>
+            <span>Please make sure names match government-issued IDs.</span>
+        </div>
+
+        <div class="contact-info block">
+            <span class="block-title">Contact Information</span>
+            <div class="block-section">
+                <div class="block-content">
+                    <div class="input-field small email-container">
+                        <label>EMAIL ADDRESS<span style="color: red;"> *</span>
+                            <input class="email" type="email" placeholder=" " required>
+                        </label>
+                    </div>
+                    <div class="input-field small">
+
+                        <label>PHONE NUMBER<span style="color: red;"> *</span><span class="tag">Numbers only</span>
+                            <input class="phoneNumber" type="tel" maxlength="10" minlength="10" placeholder=" " required>
+                        </label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="vouchers-info block">
+            <span class="block-title">Discount Code</span>
+            <div class="block-section">
+                <div class="block-content">
+                    <div class="input-field small">
+                        <label>CODE
+                            <input name="discountCode" type="text">
+                        </label>
+                    </div>
+                    <button class="button-small">APPLY</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-info block">
+            <span class="block-title">Credit Card Information</span>
+            <div class="block-section">
+                <div class="block-content">
+                    <div class="input-field small" style="width:300px;">
+                        <label>CREDIT/DEBIT CARD #<span style="color: red;"> *</span><span class="tag">Numbers only</span>
+                            <input name="cardNum" type="text" maxlength="16" placeholder=" " required>
+                        </label>
+                    </div>
+                    <div class="input-field small" style="width:300px; margin-right: 200px">
+                        <label>NAME ON CARD<span style="color: red;"> *</span>
+                            <input name="nameOnCard" type="text" placeholder=" " required>
+                        </label>
+                    </div>
+                </div>
+                <div class="block-content">
+                    <div class="MY-container" style="width:300px;">
+                        <div class="input-field small">
+                            <label>EXPIRATION DATE<span style="color: red;"> *</span>
+                                <select name="cardExpiryMonth" class="cardExpiryMonth" required>
+                                    <option value="" disabled selected>Month</option>
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                    <option value="04">April</option>
+                                    <option value="05">May</option>
+                                    <option value="06">June</option>
+                                    <option value="07">July</option>
+                                    <option value="08">August</option>
+                                    <option value="09">September</option>
+                                    <option value="10">October</option>
+                                    <option value="11">November</option>
+                                    <option value="12">December</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="input-field small">
+                            <label>&nbsp;
+                                <input name="cardExpiryYear" type="text" placeholder="YYYY" minlength="4" maxlength="4" required>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="input-field small" style="width:125px;">
+                        <label>SECURITY CODE<span style="color: red;"> *</span>
+                            <input name="secCode" type="text" maxlength="3" minlength="3" placeholder=" " required>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="price-summary">
+            <div class="extra-info-highlight" style="flex-direction: column">
+                <div style="font-weight: bold; font-size: 17pt">Temporary quarantine may apply:</div>
+                <div style="margin-left: 11px">This destination may be impacted by a temporary self-quarantine upon landing.</div>
+            </div>
+            <div id="priceTotals">
+                <div id="bagFee">
+                    <span>BAG FEE</span>
+                    <span></span>
+                </div>
+                <div id="subtotal">
+                    <span>SUBTOTAL</span>
+                    <span></span>
+                </div>
+                <div id="taxesFees">
+                    <span>TAXES & FEES</span>
+                    <span></span>
+                </div>
+                <div id="total">
+                    <span>TRIP TOTAL</span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div id="nextPageHolder" style="margin: 77px 0 0 0;">
+            <div id="policy-agreement">
+                <div><strong>Transportation of hazardous materials</strong></div>
+                <div>Federal law forbids the carriage of hazardous materials such as aerosols, fireworks, lithium batteries, and flammable liquids aboard the aircraft in your checked or carryon baggage.
+                    E-cigarettes are not permitted in checked baggage and must be transported in carryon baggage only. By clicking 'Purchase', you acknowledge that you understand the hazardous materials restrictions and penalties. View more on hazardous materials.
+                    </div>
+                <div style="width: 100%;">
+                    By clicking 'Purchase', I agree to the Terms and Conditions below, the privacy policy, fare rules, and the contract of carriage.
+                </div>
+
+
+            </div>
+            <button id="nextPage" type="submit">Purchase</button>
+        </div>
+    </form>
+
+    <div class="legal-info">
+        <strong>Terms and Conditions</strong>
+
+        <p><strong>Flight</strong></p>
+        <ul style="list-style-type:disc; margin-left: 30px;">
+            <li>I agree to the fare rules, Terms & Conditions, Privacy Policy, and Contract of Carriage.</li>
+            <li>All nonrefundable funds applied toward the purchase of a new reservation remain nonrefundable.</li>
+            <li>Expiration dates of applied funds may result in new ticket(s) expiring earlier
+                than the 12 months from date of purchase. The new expiration date will be printed
+                on the confirmation receipt sent to you.</li>
+            <li><strong>Be there with time to spare.</strong> Be sure to arrive at the departure gate
+                with your boarding pass at least 10 minutes before your scheduled departure time. Otherwise,
+                your reserved space may be canceled and you won't be eligible for denied boarding compensation.</li>
+            <li><strong>No Show Policy:</strong> If you are not planning to travel on any portion of this
+                itinerary, please cancel your reservation at least 10 minutes prior to the scheduled
+                departure of your flight. Customers who fail to cancel reservations for a Economy
+                fare segment at least 10 minutes prior to travel and who do not board the flight will be
+                considered a no show, and all remaining unused Economy funds will be forfeited.
+                All remaining unused Business and Economy Plus funds will be converted to reusable travel
+                funds for the originally ticketed Passenger only. If you no show your reward travel reservation,
+                the points will be redeposited to the purchaser’s account. Any taxes and
+                fees associated with your reward travel reservation will be held for future use in the form of
+                reusable travel funds under the name of the traveler(s).</li>
+            <li><strong>Prohibition of Multiple/Conflicting Reservations:</strong> To promote seat availability
+                for our Customers, Panda Airways® prohibits multiple reservations for the same Passenger departing
+                from the same city on the same date, or any multiple reservations containing conflicting or
+                overlapping itineraries (such as departures for the same Customer from multiple cities at the
+                same time). Furthermore, without advance notice to the Passenger or purchaser, Panda Airways® may
+                cancel such reservations, or any other reservations that it believes, in its sole discretion,
+                were made without intent to travel. With the exception of Panda Airways® gift cards, funds from
+                proactively canceled reservations by Panda Airways® will be returned to the original form of payment.
+                Reservations paid for with a Panda Airways® gift card will have the amount applied from the gift
+                card held as travel funds for use by the Customer on a future Panda Airways® flight.</li>
+        </ul>
+
+    </div>
+
+</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../../Components/flightInfo.js"></script>
+<script src="./price.js"></script>
+<script src="./payment.js"></script>
+<script>
+    $(function(){
+        $('#header').load('../../Components/header.html');
+        $('#flightInfo').load('../../Components/flightInfo.html', function() {
+            var block = this;
+            defineFlight(JSON.parse(localStorage.getItem("flight")), block).then(function(flight) {
+                priceInfo(block, flight);
+                fillOutPriceSummary(flight);
+                travelerInfo(flight);
+            });
+
+        });
+        $('#bookStepProgressBar').load('../../Components/bookStepProgressBar.html', function() {
+            var step = 2;
+            var bullets = document.getElementsByClassName("bullet");
+            for(i=0; i < step-1; i++)
+            {
+                bullets[i].classList.add('completed');
+
+            }
+            bullets[step-1].classList.add('current');
+        });
+        document.getElementsByTagName("form")[0].addEventListener('submit', function(e){e.preventDefault();});
+    });
+
+</script>
+<script>
+
+
+</script>
+</body>
+</html>
