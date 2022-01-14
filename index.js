@@ -13,7 +13,7 @@ app.use(express.json());      //req.body
 
 //ROUTES
 app.get('*', (request, response) => {
-	response.sendFile(path.join(__dirname, 'Client/Pages', 'airlineweb.html'));
+	response.sendFile('/Client/Pages/airlineweb.html');
 });
 
 app.get('/city', async(req, res)=>{
