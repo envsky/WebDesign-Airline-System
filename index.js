@@ -397,9 +397,5 @@ app.put('/checkIn', async(req, res)=> {
     }
 })
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('Client/Pages'));
-}
-
 // set up the server listening at port 5000 (the port number can be changed)
 app.listen(process.env.PORT || 5000, ()=>{});

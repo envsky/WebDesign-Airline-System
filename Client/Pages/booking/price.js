@@ -31,14 +31,14 @@ async function fillOutPriceDifference(type='change') {
     switch(type)
     {
         case 'change':
-            priceDiff = await fetch("http://localhost:5000/priceDiff?"+$.param({
+            priceDiff = await fetch("/priceDiff?"+$.param({
                 oldFlight: JSON.parse(localStorage.getItem("flight")),
                 newFlight: JSON.parse(localStorage.getItem("newFlight")),
                 type: 'change'
             }));
             priceDiff = await priceDiff.json();
 
-            booking = await fetch("http://localhost:5000/booking?"+$.param({
+            booking = await fetch("/booking?"+$.param({
                 bookRef: JSON.parse(localStorage.getItem("changeInfo")).bookRef,
                 type:'cardNumber'
             }));
@@ -67,7 +67,7 @@ async function fillOutPriceDifference(type='change') {
 
             break;
         case 'cancel':
-            priceDiff = await fetch("http://localhost:5000/priceDiff?"+$.param({
+            priceDiff = await fetch("/priceDiff?"+$.param({
                 oldFlight: JSON.parse(localStorage.getItem("flight")),
                 travelersCancel: JSON.parse(localStorage.getItem("changeInfo")).travelersCancel,
                 type: 'cancel'
@@ -75,7 +75,7 @@ async function fillOutPriceDifference(type='change') {
 
             priceDiff = await priceDiff.json();
             var travelerCount = JSON.parse(localStorage.getItem("flight")).travelers.length;
-            booking = await fetch("http://localhost:5000/booking?"+$.param({
+            booking = await fetch("/booking?"+$.param({
                 bookRef: JSON.parse(localStorage.getItem("changeInfo")).bookRef,
                 type:'cardNumber'
             }));
@@ -113,7 +113,7 @@ async function finalizeChange(type) {
                 break;
         }
 
-        const response = await fetch("http://localhost:5000/purchase",
+        const response = await fetch("/purchase",
             {method: method,
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(info)});
@@ -122,9 +122,9 @@ async function finalizeChange(type) {
             var resp = await response.json();
             localStorage.setItem("response", JSON.stringify(resp));
             if(type==='change')
-                window.location.replace("./changeConfirmation.html");
+                window.location.replace("../change/changeConfirmation.html");
             else
-                window.location.replace("./cancelConfirmation.html");
+                window.location.replace("../change/cancelConfirmation.html");
         }
         else if(response.status === 500) {
             errorChanging();

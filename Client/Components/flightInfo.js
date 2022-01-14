@@ -7,9 +7,9 @@ async function defineFlight(flightInfo, block) {
 
 async function getFlight(flight) {
     if(flight.flight2 === undefined)
-        var resp = await fetch(`http://localhost:5000/getFlight?id=${flight.flight}`);
+        var resp = await fetch(`/getFlight?id=${flight.flight}`);
     else
-        var resp = await fetch(`http://localhost:5000/getFlight?id=${flight.flight}&id2=${flight.flight2}`);
+        var resp = await fetch(`/getFlight?id=${flight.flight}&id2=${flight.flight2}`);
     let selection = await resp.json();
     return {flight: selection, fare: flight.fare,travelers: flight.travelers};
 }

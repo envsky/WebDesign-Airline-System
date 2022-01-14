@@ -138,7 +138,7 @@ function insertChangeInfo() {
 
 async function getCities() {
     try {
-        const response = await fetch('http://localhost:5000/cities');
+        const response = await fetch('/cities');
         const jsonData = await response.json();
         for(i=0; i < jsonData.length; i++)
         {
@@ -173,7 +173,7 @@ function checkIn() {
 }
 
 async function checkInOnDB(info) {
-    const response = await fetch('http://localhost:5000/checkIn',
+    const response = await fetch('/checkIn',
         {method: "PUT",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(info)});

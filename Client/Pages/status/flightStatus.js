@@ -34,7 +34,7 @@ function changeDate() {
 
 async function getCities(airportCode) {
     try {
-        const response = await fetch(`http://localhost:5000/city?airport_code=${airportCode}`);
+        const response = await fetch(`/city?airport_code=${airportCode}`);
         return await response.json();
     } catch(err) {
         console.log(err.message);
@@ -42,7 +42,7 @@ async function getCities(airportCode) {
 }
 async function findFlights() {
     try {
-        const response = await fetch("http://localhost:5000/findFlights/?"+$.param({
+        const response = await fetch("/findFlights/?"+$.param({
             from: from,
             to: to,
             date: date,

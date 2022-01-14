@@ -82,7 +82,7 @@ async function purchase() {
             contactInfo: contactInfo,
             paymentInfo: paymentInfo};
 
-        const response = await fetch("http://localhost:5000/purchase",
+        const response = await fetch("/purchase",
         {method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(info)});
@@ -90,7 +90,7 @@ async function purchase() {
         {
             var resp = await response.json();
             localStorage.setItem("response", JSON.stringify(resp));
-            window.location.replace("./confirmation.html");
+            window.location.replace("confirmation.html");
         }
         else if(response.status === 403) {
             flightUnavailable();

@@ -3,7 +3,7 @@ const changeInfo = JSON.parse(localStorage.getItem("changeInfo"));
 
 async function getBooking(changeInfo, type) {
     try {
-        const response = await fetch("http://localhost:5000/booking/?"+$.param({
+        const response = await fetch("/booking/?"+$.param({
             bookRef: changeInfo.bookRef,
             type: type
         }));

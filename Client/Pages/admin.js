@@ -19,7 +19,7 @@ function insertFakeStuff(numOfBookings) {
 
 async function fakeBookings(numOfBookings) {
 
-    return (await fetch('http://localhost:5000/fakeBookings',
+    return (await fetch('/fakeBookings',
         {method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({numOfBookings: numOfBookings})})).status;
@@ -104,7 +104,7 @@ function insertStandby(row, data) {
 
 async function flightInfo(flightID) {
     try {
-        let response = await fetch(`http://localhost:5000/admin/flightInfo?flightID=${flightID}`);
+        let response = await fetch(`/admin/flightInfo?flightID=${flightID}`);
         if(response.ok) {
             return response.json();
         } else if(response.status === 404) {
