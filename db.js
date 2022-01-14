@@ -10,11 +10,10 @@ fs.writeFile('query.sql', '', function (err) {if (err) throw err;});
 fs.writeFile('transaction.sql', '', function (err) {if (err) throw err;});
 
 const pool = new Pool({
-    host: 'localhost',
-    user: arg[0],
-    password: arg[1],
-    port: 5432,
-    database: 'airline'
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
 });
 
 
