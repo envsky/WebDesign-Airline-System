@@ -6,10 +6,11 @@ const processing = require('./processing');
 const queryBank = require('./queryBank');
 const fakeBooking = require('./performBookings');
 
+const PORT = process.env.PORT || 5000;
 
 // middleware
 app.use(cors());
-app.use(express.json());      //req.body
+app.use(express.json());
 
 //ROUTES
 app.get('/', (request, response) => {
@@ -402,4 +403,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // set up the server listening at port 5000 (the port number can be changed)
-app.listen(process.env.PORT || 5000, ()=>{});
+app.listen(PORT, ()=>{
+    console.log(`Server started on port ${PORT}`);
+});
