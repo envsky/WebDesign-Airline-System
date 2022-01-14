@@ -16,6 +16,7 @@ const pool = new Pool({
     }
 });
 
+pool.connect();
 
 var isTransaction = false;
 const Query = require('pg').Query;
