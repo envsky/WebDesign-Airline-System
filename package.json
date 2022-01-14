@@ -101,6 +101,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "(node index.js) & (./node_modules/.bin/http-server ../Client -a localhost -s -p 8000)"
   },
+  "engines": {
+    "node": "17.x"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tpham11001/WebDesign-Airline-System.git"
