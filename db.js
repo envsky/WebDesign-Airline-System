@@ -1,10 +1,6 @@
 
 const {Pool} = require('pg');
-const fs = require('fs');
 var dedent = require('dedent-js');
-
-var file = fs.readFileSync('./password.txt', 'utf8');
-var arg = file.split('\n');
 
 fs.writeFile('query.sql', '', function (err) {if (err) throw err;});
 fs.writeFile('transaction.sql', '', function (err) {if (err) throw err;});
