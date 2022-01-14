@@ -5,7 +5,7 @@ const fares = ["Economy", "Economy Plus", "Business"];
 let cities = [];
 const getCities = async() =>{
     try {
-        const response = await (await fetch('http://localhost:5000/cities')).json();
+        const response = await (await fetch('/cities')).json();
         cities = response.map(city=>{return city.airport_code});
     }
     catch(err) {
@@ -34,7 +34,7 @@ async function purchases(numOfBookings) {
             {
                 var from = cities[Math.floor(Math.random()*cities.length)];
                 var to = cities[Math.floor(Math.random()*cities.length)];
-                var response = await (await fetch(`http://localhost:5000/findFlights?from=${from}&to=${to}&date=2020-12-11&travelers=1`)).json();
+                var response = await (await fetch(`/findFlights?from=${from}&to=${to}&date=2020-12-11&travelers=1`)).json();
 
                 if(response[0].length > 0 && response[1].length > 0)
                 {
@@ -67,7 +67,7 @@ async function purchases(numOfBookings) {
                     if(randomFlight.conn1_id !== undefined)
                         flight.flight2 = randomFlight.conn1_id;
 
-                    await fetch("http://localhost:5000/purchase",
+                    await fetch("/purchase",
                         {method: "POST",
                             headers: {"Content-Type": "application/json"},
                             body: JSON.stringify({

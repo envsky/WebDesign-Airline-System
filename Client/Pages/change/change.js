@@ -44,7 +44,7 @@ function bookingNotFound() {
         <p>Please make sure you have entered the booking number correctly (CASE SENSITIVE).</p>
         </div>
         <div id="nextPageHolder">
-            <a id="nextPage" onclick="clearLocalStorage()" href="../airlineweb.html" style="width: 173px;">Back to Homepage</a>
+            <a id="nextPage" onclick="clearLocalStorage()" href="../../Pages/airlineweb.html" style="width: 173px;">Back to Homepage</a>
         </div>`;
 }
 

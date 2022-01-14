@@ -104,7 +104,7 @@ function insertInfo(row, data, isChangeBooking) {
     if(data.economy_available===0 || data.conn1_economy_available===0) {
         if(isChangeBooking) {
             linkEcon = document.createElement("a");
-            linkEcon.href = "../change/priceReconcile.html";
+            linkEcon.href = "../../Pages/change/priceReconcile.html";
             linkEcon.innerHTML = "Standby";
             linkEcon.onclick = function() {pickFlight(data, "Economy", true);}
         } else {
@@ -115,9 +115,9 @@ function insertInfo(row, data, isChangeBooking) {
     } else {
         linkEcon = document.createElement("a");
         if(isChangeBooking)
-            linkEcon.href = "../change/priceReconcile.html";
+            linkEcon.href = "../../Pages/change/priceReconcile.html";
         else
-            linkEcon.href = "./price.html";
+            linkEcon.href = "../../Pages/booking/price.html";
         linkEcon.onclick = function() {pickFlight(data, "Economy", false);}
         linkEcon.innerHTML = "$"+data.econPrice.toFixed(0);
     }
@@ -129,7 +129,7 @@ function insertInfo(row, data, isChangeBooking) {
     if(data.economy_plus_available===0 || data.conn1_economy_plus_available===0) {
         if(isChangeBooking) {
             linkEconPlus = document.createElement("a");
-            linkEconPlus.href = "../change/priceReconcile.html";
+            linkEconPlus.href = "../../Pages/change/priceReconcile.html";
             linkEconPlus.innerHTML = "Standby";
             linkEconPlus.onclick = function() {pickFlight(data, "Economy Plus", true);}
         } else {
@@ -140,9 +140,9 @@ function insertInfo(row, data, isChangeBooking) {
     } else {
         linkEconPlus = document.createElement("a");
         if(isChangeBooking)
-            linkEconPlus.href = "../change/priceReconcile.html";
+            linkEconPlus.href = "../../Pages/change/priceReconcile.html";
         else
-            linkEconPlus.href = "./price.html";
+            linkEconPlus.href = "../../Pages/booking/price.html";
         linkEconPlus.onclick = function() {pickFlight(data, "Economy Plus", false)};
         linkEconPlus.innerHTML = "$"+data.econPlusPrice.toFixed(0);
     }
@@ -154,7 +154,7 @@ function insertInfo(row, data, isChangeBooking) {
     if(data.business_available===0 || data.conn1_business_available===0) {
         if(isChangeBooking) {
             linkBusiness = document.createElement("a");
-            linkBusiness.href = "../change/priceReconcile.html";
+            linkBusiness.href = "../../Pages/change/priceReconcile.html";
             linkBusiness.innerHTML = "Standby";
             linkBusiness.onclick = function() {pickFlight(data, "Business", true);}
         } else {
@@ -167,9 +167,9 @@ function insertInfo(row, data, isChangeBooking) {
     {
         linkBusiness = document.createElement("a");
         if(isChangeBooking)
-            linkBusiness.href = "../change/priceReconcile.html";
+            linkBusiness.href = "../../Pages/change/priceReconcile.html";
         else
-            linkBusiness.href = "./price.html";
+            linkBusiness.href = "../../Pages/booking/price.html";
         linkBusiness.onclick = function() {pickFlight(data, "Business", false)};
         linkBusiness.innerHTML = "$"+data.businessPrice.toFixed(0);
     }

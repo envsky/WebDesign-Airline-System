@@ -130,9 +130,9 @@ function insertChangeInfo() {
     const items = {"bookRef": document.getElementById("bookRef").value};
     localStorage.setItem("changeInfo", JSON.stringify(items));
     if (radio === 'change')
-        window.location.href = "change/change.html";
+        window.location.href = "../Pages/change/change.html";
     else
-        window.location.href="change/cancel.html";
+        window.location.href="../Pages/change/cancel.html";
     return false;
 }
 
@@ -159,10 +159,10 @@ function checkIn() {
         checkInOnDB(info).then(status=> {
             if(status === 200)
             {
-                window.location.href="checkIn/success.html";
+                window.location.href="../Pages/checkIn/success.html";
             }
             else if(status === 403) {
-                window.location.href="checkIn/failed.html";
+                window.location.href="../Pages/checkIn/failed.html";
             }
         });
         return false;

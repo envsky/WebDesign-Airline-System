@@ -40,7 +40,7 @@ function flightUnavailable() {
 
     var homepageLink = document.createElement("a");
     homepageLink.setAttribute("id", "nextPage");
-    homepageLink.setAttribute("href", "../airlineweb.html");
+    homepageLink.setAttribute("href", "../../Pages/airlineweb.html");
     homepageLink.style.width = "173px";
     homepageLink.innerHTML = "Back to Homepage";
     nextPageHolder.appendChild(homepageLink);

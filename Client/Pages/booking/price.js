@@ -122,9 +122,9 @@ async function finalizeChange(type) {
             var resp = await response.json();
             localStorage.setItem("response", JSON.stringify(resp));
             if(type==='change')
-                window.location.replace("../change/changeConfirmation.html");
+                window.location.replace("../../Pages/change/changeConfirmation.html");
             else
-                window.location.replace("../change/cancelConfirmation.html");
+                window.location.replace("../../Pages/change/cancelConfirmation.html");
         }
         else if(response.status === 500) {
             errorChanging();
