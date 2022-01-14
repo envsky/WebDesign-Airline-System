@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());      //req.body
 
 //ROUTES
-app.get('*', (request, response) => {
+app.get('/', (request, response) => {
 	response.sendFile('Client/Pages/airlineweb.html', { root: __dirname });
 });
 
